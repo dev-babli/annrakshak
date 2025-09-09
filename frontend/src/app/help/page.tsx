@@ -279,7 +279,7 @@ export default function HelpPage() {
         >
           <h2 className="text-2xl font-bold mb-4">Emergency Crop Support</h2>
           <p className="text-lg mb-6 opacity-90">
-            If you're facing a severe crop disease outbreak or pest infestation
+            If you&apos;re facing a severe crop disease outbreak or pest infestation
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="px-6 py-3 bg-white text-red-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">

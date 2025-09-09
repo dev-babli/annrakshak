@@ -170,7 +170,7 @@ export default function AnalyticsPage() {
             <div className="mt-6 p-4 bg-blue-50 rounded-lg">
               <p className="text-sm text-blue-700 flex items-center gap-2">
                 <Info className="w-4 h-4" />
-                You've reduced pesticide usage by 35% compared to last season
+                You&apos;ve reduced pesticide usage by 35% compared to last season
               </p>
             </div>
           </motion.div>

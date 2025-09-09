@@ -492,7 +492,7 @@ export default function AnnRakshakDashboard() {
           <div className="mt-6 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-semibold mb-2">Today's Weather</h3>
+                <h3 className="text-lg font-semibold mb-2">Today&apos;s Weather</h3>
                 <div className="flex items-center gap-4">
                   <Sun className="w-12 h-12" />
                   <div>
