@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Camera, Upload, CheckCircle, XCircle, Loader2, Spray, Wifi, WifiOff, Brain, Zap } from 'lucide-react'
+import { Camera, Upload, CheckCircle, XCircle, Loader2, Droplets, Wifi, WifiOff, Brain, Zap } from 'lucide-react'
 import { detectionService } from '@/services/detectionService'
 
 interface DetectionResult {
@@ -19,13 +19,13 @@ interface DetectionResult {
 
 interface CameraCaptureProps {
     onDetectionComplete?: (result: DetectionResult) => void
-    onSprayTriggered?: () => void
+    onDropletsTriggered?: () => void
 }
 
-export default function CameraCapture({ onDetectionComplete, onSprayTriggered }: CameraCaptureProps) {
+export default function CameraCapture({ onDetectionComplete, onDropletsTriggered }: CameraCaptureProps) {
     const [isCapturing, setIsCapturing] = useState(false)
     const [isAnalyzing, setIsAnalyzing] = useState(false)
-    const [isSpraying, setIsSpraying] = useState(false)
+    const [isDropletsing, setIsDropletsing] = useState(false)
     const [result, setResult] = useState<DetectionResult | null>(null)
     const [error, setError] = useState<string | null>(null)
     const [stream, setStream] = useState<MediaStream | null>(null)
@@ -127,30 +127,30 @@ export default function CameraCapture({ onDetectionComplete, onSprayTriggered }:
         }
     }
 
-    const triggerSpray = async (sprayTime?: number) => {
-        setIsSpraying(true)
+    const triggerDroplets = async (sprayTime?: number) => {
+        setIsDropletsing(true)
         try {
-            const timeToSpray = sprayTime || result?.sprayTimeSeconds || 5
+            const timeToDroplets = sprayTime || result?.sprayTimeSeconds || 5
 
             const response = await fetch('/api/run-motor', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    time: timeToSpray
+                    time: timeToDroplets
                 })
             })
 
             if (response.ok) {
-                onSprayTriggered?.()
+                onDropletsTriggered?.()
                 // Show spray animation for the duration + 1 second buffer
-                setTimeout(() => setIsSpraying(false), (timeToSpray * 1000) + 1000)
+                setTimeout(() => setIsDropletsing(false), (timeToDroplets * 1000) + 1000)
             } else {
                 throw new Error('Failed to trigger spray')
             }
         } catch (err) {
-            console.error('Spray error:', err)
+            console.error('Droplets error:', err)
             setError('Failed to trigger spray system')
-            setIsSpraying(false)
+            setIsDropletsing(false)
         }
     }
 
@@ -158,7 +158,7 @@ export default function CameraCapture({ onDetectionComplete, onSprayTriggered }:
         setResult(null)
         setError(null)
         setIsAnalyzing(false)
-        setIsSpraying(false)
+        setIsDropletsing(false)
     }
 
     return (
@@ -338,15 +338,15 @@ export default function CameraCapture({ onDetectionComplete, onSprayTriggered }:
                                 </div>
                             )}
 
-                            {/* Spray Time Suggestion */}
+                            {/* Droplets Time Suggestion */}
                             {result.sprayTimeSeconds > 0 && (
                                 <div className="mb-4 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
                                     <div className="flex items-center gap-2 text-orange-700 dark:text-orange-400">
-                                        <Spray className="w-5 h-5" />
-                                        <span className="font-semibold">Recommended Spray Time</span>
+                                        <Droplets className="w-5 h-5" />
+                                        <span className="font-semibold">Recommended Droplets Time</span>
                                     </div>
                                     <p className="text-sm text-orange-600 dark:text-orange-300 mt-1">
-                                        Spray for {result.sprayTimeSeconds} seconds to treat the detected disease.
+                                        Droplets for {result.sprayTimeSeconds} seconds to treat the detected disease.
                                     </p>
                                 </div>
                             )}
@@ -366,16 +366,16 @@ export default function CameraCapture({ onDetectionComplete, onSprayTriggered }:
                                     <motion.button
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
-                                        onClick={() => triggerSpray(result.sprayTimeSeconds)}
-                                        disabled={isSpraying}
+                                        onClick={() => triggerDroplets(result.sprayTimeSeconds)}
+                                        disabled={isDropletsing}
                                         className="flex-1 p-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                                     >
-                                        {isSpraying ? (
+                                        {isDropletsing ? (
                                             <Loader2 className="w-4 h-4 animate-spin" />
                                         ) : (
-                                            <Spray className="w-4 h-4" />
+                                            <Droplets className="w-4 h-4" />
                                         )}
-                                        {isSpraying ? 'Running Motor...' : 'Run Motor'}
+                                        {isDropletsing ? 'Running Motor...' : 'Run Motor'}
                                     </motion.button>
                                 )}
                             </div>

@@ -30,15 +30,17 @@ class DetectionService {
   }
 
   private setupOnlineStatusListener() {
-    window.addEventListener('online', () => {
-      this.isOnline = true
-      console.log('🌐 Back online - Gemini API available')
-    })
+    if (typeof window !== 'undefined') {
+      window.addEventListener('online', () => {
+        this.isOnline = true
+        console.log('🌐 Back online - Gemini API available')
+      })
 
-    window.addEventListener('offline', () => {
-      this.isOnline = false
-      console.log('📴 Offline - Using ML model only')
-    })
+      window.addEventListener('offline', () => {
+        this.isOnline = false
+        console.log('📴 Offline - Using ML model only')
+      })
+    }
   }
 
   async detectDisease(imageBlob: Blob): Promise<DetectionResult> {
@@ -204,7 +206,7 @@ class DetectionService {
     return {
       geminiAvailable: this.genAI !== null,
       mlModelLoaded: modelStatus.loaded,
-      isOnline: this.isOnline
+      isOnline: typeof window !== 'undefined' ? this.isOnline : true
     }
   }
 }

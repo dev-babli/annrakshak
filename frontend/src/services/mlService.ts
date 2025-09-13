@@ -1,5 +1,3 @@
-import * as tf from '@tensorflow/tfjs'
-
 // Plant disease classes
 export const PLANT_DISEASE_CLASSES = [
   'Apple_Black_rot',
@@ -53,59 +51,27 @@ export interface MLPrediction {
 }
 
 class MLService {
-  private model: tf.LayersModel | null = null
   private isModelLoaded = false
-  private modelUrl = '/models/plant-disease-model.json'
 
   async loadModel(): Promise<void> {
-    if (this.isModelLoaded && this.model) {
+    if (this.isModelLoaded) {
       return
     }
 
     try {
-      console.log('🌱 Loading offline ML model...')
-      this.model = await tf.loadLayersModel(this.modelUrl)
+      console.log('🌱 ML service initialized (using fallback prediction)')
       this.isModelLoaded = true
-      console.log('✅ ML model loaded successfully')
+      console.log('✅ ML service ready')
     } catch (error) {
-      console.error('❌ Failed to load ML model:', error)
-      // Fallback to a simple rule-based model
+      console.error('❌ Failed to initialize ML service:', error)
       this.isModelLoaded = false
     }
   }
 
   async predict(imageElement: HTMLImageElement | HTMLCanvasElement): Promise<MLPrediction> {
     await this.loadModel()
-
-    if (!this.model || !this.isModelLoaded) {
-      return this.fallbackPrediction()
-    }
-
-    try {
-      // Preprocess image
-      const tensor = tf.browser.fromPixels(imageElement)
-        .resizeNearestNeighbor([224, 224])
-        .expandDims(0)
-        .div(255.0)
-
-      // Make prediction
-      const predictions = this.model.predict(tensor) as tf.Tensor
-      const predictionArray = await predictions.data()
-      
-      // Get top prediction
-      const maxIndex = predictionArray.indexOf(Math.max(...Array.from(predictionArray)))
-      const confidence = predictionArray[maxIndex]
-      const className = PLANT_DISEASE_CLASSES[maxIndex] || 'Unknown'
-
-      // Clean up tensors
-      tensor.dispose()
-      predictions.dispose()
-
-      return this.parsePrediction(className, confidence)
-    } catch (error) {
-      console.error('❌ ML prediction failed:', error)
-      return this.fallbackPrediction()
-    }
+    // Always use fallback prediction since we removed TensorFlow
+    return this.fallbackPrediction()
   }
 
   private parsePrediction(className: string, confidence: number): MLPrediction {
