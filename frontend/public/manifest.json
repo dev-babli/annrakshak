@@ -1,0 +1,82 @@
+{
+  "name": "Ann Rakshak - AI Pesticide Control System",
+  "short_name": "Ann Rakshak",
+  "description": "AI-powered precision agriculture and smart pesticide management system",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#10b981",
+  "orientation": "portrait-primary",
+  "categories": ["agriculture", "productivity", "utilities"],
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/images/icon/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/screenshots/detection-page.png",
+      "type": "image/png",
+      "sizes": "1280x720",
+      "form_factor": "wide",
+      "label": "Plant Disease Detection Interface"
+    },
+    {
+      "src": "/images/screenshots/dashboard.png",
+      "type": "image/png",
+      "sizes": "750x1334",
+      "form_factor": "narrow",
+      "label": "Mobile Dashboard View"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Disease Detection",
+      "short_name": "Detect",
+      "description": "Quick access to plant disease detection",
+      "url": "/detection",
+      "icons": [
+        {
+          "src": "/images/icon/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "short_name": "Analytics",
+      "description": "View field analytics and reports",
+      "url": "/analytics",
+      "icons": [
+        {
+          "src": "/images/icon/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  }
+}

@@ -1,0 +1,27 @@
+# Ann Rakshak - Python Workflow Requirements
+# Install with: pip install -r python_requirements.txt
+
+# Google Gemini AI
+google-generativeai>=0.21.0
+
+# HTTP requests for ESP32 communication
+requests>=2.31.0
+
+# Image processing
+Pillow>=10.0.0
+
+# Optional: MQTT support
+paho-mqtt>=1.6.1
+
+# Optional: Serial communication (for direct ESP32 connection)
+pyserial>=3.5
+
+# Optional: Data visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Optional: Progress bars
+tqdm>=4.65.0
+
+# Optional: Configuration management
+python-dotenv>=1.0.0
